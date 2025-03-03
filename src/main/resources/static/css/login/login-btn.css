@@ -1,0 +1,41 @@
+.login-btn {
+    text-decoration:none;
+    font-weight:bold;
+    height:4rem;
+    border-radius:10px;
+
+    display: inline-flex;
+    justify-content: center; /* 수평 */
+    align-items: center; /* 수직 */
+    transition: 0.15s;
+}
+
+.login-btn:hover {
+    filter: brightness(0.8);
+    transition: 0.15s;
+}
+
+.login-btn img {
+    height:2.6rem;
+}
+
+.btn-container {
+    display:flex;
+    justify-content:center;
+    gap:8px;
+}
+
+
+
+/* 네이버 로그인 버튼 */
+.login-naver img {
+}
+
+/* 구글 로그인 버튼 */
+.login-google img {
+}
+
+
+/* 카카오 로그인 버튼 */
+.login-kakao img {
+}

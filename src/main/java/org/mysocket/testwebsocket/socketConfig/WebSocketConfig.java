@@ -1,4 +1,4 @@
-package org.mysocket.testwebsocket.config;
+package org.mysocket.testwebsocket.socketConfig;
 
 
 import org.mysocket.testwebsocket.handler.WebSocketHandler;

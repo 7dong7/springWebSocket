@@ -1,9 +1,8 @@
-package org.mysocket.testwebsocket.domain.message;
+package org.mysocket.testwebsocket.domain.chat.entity;
 
 import jakarta.persistence.*;
 import org.mysocket.testwebsocket.domain.base.BaseTime;
-import org.mysocket.testwebsocket.domain.chatroom.ChatRoom;
-import org.mysocket.testwebsocket.domain.user.User;
+import org.mysocket.testwebsocket.domain.user.entity.User;
 
 @Entity
 public class Message extends BaseTime {

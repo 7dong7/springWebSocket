@@ -1,9 +1,9 @@
-package org.mysocket.testwebsocket.domain.chatroom;
+package org.mysocket.testwebsocket.domain.chat.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import org.mysocket.testwebsocket.domain.base.BaseTime;
-import org.mysocket.testwebsocket.domain.user.User;
+import org.mysocket.testwebsocket.domain.user.entity.User;
 
 /**
  *  사용자와 채팅방의 조인 테이블

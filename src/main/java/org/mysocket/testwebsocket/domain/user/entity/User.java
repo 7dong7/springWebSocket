@@ -1,9 +1,9 @@
-package org.mysocket.testwebsocket.domain.user;
+package org.mysocket.testwebsocket.domain.user.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import org.mysocket.testwebsocket.domain.base.BaseTime;
-import org.mysocket.testwebsocket.domain.chatroom.ChatRoomUser;
+import org.mysocket.testwebsocket.domain.chat.entity.ChatRoomUser;
 
 import java.util.List;
 

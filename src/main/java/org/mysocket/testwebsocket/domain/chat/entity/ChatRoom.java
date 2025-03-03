@@ -1,11 +1,15 @@
-package org.mysocket.testwebsocket.domain.chatroom;
+package org.mysocket.testwebsocket.domain.chat.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 import org.mysocket.testwebsocket.domain.base.BaseTime;
 
 import java.util.List;
 
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ChatRoom extends BaseTime {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,4 +24,10 @@ public class ChatRoom extends BaseTime {
     @OneToMany(mappedBy = "chatRoom")
     private List<ChatRoomUser> participants;
 
+    @Builder
+    public ChatRoom(String name, boolean isGroup, List<ChatRoomUser> participants) {
+        this.name = name;
+        this.isGroup = isGroup;
+        this.participants = participants;
+    }
 }
