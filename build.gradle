@@ -42,8 +42,13 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     // 타임 리프
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    //
+    // mysql
     runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // JWT 0.12.3 버전 (버전에 따라서 구현 방식이 다름)
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
 }
 
 tasks.named('test') {

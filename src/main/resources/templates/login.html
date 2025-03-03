@@ -6,6 +6,8 @@
     <!-- css -->
     <link rel="stylesheet" href="/css/login/login.css">
     <link rel="stylesheet" href="/css/login/login-btn.css">
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
         $(".user").focusin(function(){
@@ -37,12 +39,32 @@
         <span class="entypo-user inputUserIcon">
             <i class="fa fa-user"></i>
         </span>
-        <input type="text" class="user" placeholder="email"/>
+        <input id="email" type="text" class="user" placeholder="email"/>
         <span class="entypo-key inputPassIcon">
             <i class="fa fa-key"></i>
         </span>
-        <input type="password" class="pass"placeholder="password"/>
+        <input id="password" type="password" class="pass"placeholder="password"/>
     </form>
+    <script>
+        function login() {
+            const username = $("#email").val();
+            const password = $("#password").val();
+
+            $.ajax({
+                url: "/login",
+                type: "POST",
+                data: { username, password },
+                success: function(token) {
+                    localStorage.setItem("jwtToken", token); // JWT를 브라우저에 저장
+                    alert("Login successful! Token saved.");
+                    window.location.href = "/chat"; // 로그인 후 이동
+                },
+                error: function() {
+                    alert("Login failed");
+                }
+            });
+        }
+    </script>
 
     <!-- oauth2 로그인 -->
     <div class="btn-container">
@@ -50,7 +72,7 @@
             <img th:src="@{/images/login/btnG_완성형.png}"/>
         </a>
         <a class="login-btn login-google" href="/oauth2/authorization/google">
-            <img th:src="@{/images/login/web_neutral_sq_SU@4x.png}"/>
+            <img th:src="@{/images/login/googleBtn.png}"/>
         </a>
         <a class="login-btn login-kakao" href="/oauth2/authorization/kakao">
             <img th:src="@{/images/login/kakao_login_medium_narrow.png}"/>
