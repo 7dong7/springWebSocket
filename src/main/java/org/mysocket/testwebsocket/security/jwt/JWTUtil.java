@@ -1,5 +1,6 @@
 package org.mysocket.testwebsocket.security.jwt;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -25,12 +26,12 @@ public class JWTUtil {
     }
 
 // ===== 토큰 생성 ===== //
-    public String createJwt(String category, String username, String role, Long expiredMs) {
+    public String createJwt(String category, String email, String role, Long expiredMs) {
         // category -> "access", "refresh" 토큰 종류 지정
 
         return Jwts.builder() // jwt 생성 준비
                 .claim("category", category) // 속성 설정
-                .claim("username", username)
+                .claim("email", email)
                 .claim("role", role)
                 .issuedAt(new Date(System.currentTimeMillis())) // 발급일
                 .expiration(new Date(System.currentTimeMillis() + expiredMs)) // 만료일
@@ -41,10 +42,15 @@ public class JWTUtil {
         // 1시간 = 60 * 60 * 1,000 밀리초 = 3,600,000 밀리초
     }
 
-    // ===== 토큰 검증 ===== //
+// ===================== 토큰 검증 ==================== //
+    // claims 추출 (토큰을 파싱하는 것만으로도 토크의 유효성을 체크할 수 있다
+    public Claims validClaims(String token) {
+        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload();
+    }
+
     // 토큰에서 이름 속성 추출
-    public String getUsername(String token) {
-        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("username", String.class);
+    public String getEmail(String token) {
+        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("email", String.class);
     }
 
     // 토큰에서 권한 속성 추출
@@ -52,9 +58,14 @@ public class JWTUtil {
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("role", String.class);
     }
 
+    // 토큰에서 닉네임 속성 추출
+    public String getNickname(String token) {
+        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("nickname", String.class);
+    }
+
     // 토큰에서 카테고리 속성 추출
     public String getCategory(String token) {
-        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("role", String.class);
+        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("category", String.class);
     }
 
     // 토큰 만료일 검증 (만료: true, 유효: false) -- 토큰이 만료되었습니까? 네 true 만료됨

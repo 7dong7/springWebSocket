@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,6 +10,13 @@
     <link rel="stylesheet" href="/css/login/login-btn.css">
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- service worker 등록 (access token 자동 header 증록) -->
+<!--    <script src="/js/main.js"></script>-->
+
+
+    <!-- 로그인 jwt 발급 js -->
+    <script src="/js/login.js"></script>
+
 
     <script>
         $(".user").focusin(function(){
@@ -26,45 +35,48 @@
 
 <body>
     <main class="main-container">
-    <form action="">
+    <form id="loginForm">
         <h2>
             <span class="entypo-login">
-                <i class="fa fa-sign-in"></i>
+                <svg class="login-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#ffffff" d="M224 64c-44.2 0-80 35.8-80 80l0 48 240 0c35.3 0 64 28.7 64 64l0 192c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 256c0-35.3 28.7-64 64-64l16 0 0-48C80 64.5 144.5 0 224 0c57.5 0 107 33.7 130.1 82.3c7.6 16 .8 35.1-15.2 42.6s-35.1 .8-42.6-15.2C283.4 82.6 255.9 64 224 64zm32 320c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l64 0z"/></svg>
             </span>
             로그인
         </h2>
-        <button class="submit">
-            <span class="entypo-lock"><i class="fa fa-lock"></i></span>
+        <button type="submit">
+            <svg class="login-icon-key" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#ffffff" d="M336 352c97.2 0 176-78.8 176-176S433.2 0 336 0S160 78.8 160 176c0 18.7 2.9 36.8 8.3 53.7L7 391c-4.5 4.5-7 10.6-7 17l0 80c0 13.3 10.7 24 24 24l80 0c13.3 0 24-10.7 24-24l0-40 40 0c13.3 0 24-10.7 24-24l0-40 40 0c6.4 0 12.5-2.5 17-7l33.3-33.3c16.9 5.4 35 8.3 53.7 8.3zM376 96a40 40 0 1 1 0 80 40 40 0 1 1 0-80z"/></svg>
         </button>
         <span class="entypo-user inputUserIcon">
             <i class="fa fa-user"></i>
         </span>
-        <input id="email" type="text" class="user" placeholder="email"/>
+        <input id="email" type="text" class="user" placeholder="Email"/>
         <span class="entypo-key inputPassIcon">
             <i class="fa fa-key"></i>
         </span>
-        <input id="password" type="password" class="pass"placeholder="password"/>
+        <input id="password" type="password" class="pass" placeholder="Password"/>
     </form>
+
+    <!-- 로그인 기능 js -->
     <script>
-        function login() {
+        $("#loginForm").submit(function(event) {
+            event.preventDefault(); // 폼 제출 기본 동작 방지
+
             const username = $("#email").val();
             const password = $("#password").val();
 
-            $.ajax({
-                url: "/login",
-                type: "POST",
-                data: { username, password },
-                success: function(token) {
-                    localStorage.setItem("jwtToken", token); // JWT를 브라우저에 저장
-                    alert("Login successful! Token saved.");
-                    window.location.href = "/chat"; // 로그인 후 이동
-                },
-                error: function() {
-                    alert("Login failed");
-                }
+            console.log(username, password, "/chat");
+
+            main(username, password, "/chat").then(() => {
+                console.log("로그인 성공 처리 로직 시작");
+            }).catch(() => {
+                console.log("로그인 거부됨 시작")
             });
-        }
+
+            // login(username, password).then( () => {
+            //     console.log("로그인 성공 처리 로직 시작");
+            // })
+        });
     </script>
+
 
     <!-- oauth2 로그인 -->
     <div class="btn-container">

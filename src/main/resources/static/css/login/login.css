@@ -1,11 +1,3 @@
-@import url(http://weloveiconfonts.com/api/?family=entypo);
-@import url(https://fonts.googleapis.com/css?family=Roboto);
-
-/* zocial */
-[class*="entypo-"]:before {
-    font-family: 'entypo', sans-serif;
-}
-
 *,
 *:before,
 *:after {
@@ -32,10 +24,19 @@ form {
     height: auto;
 }
 
+.login-icon {
+    margin:0 3px 0 7px;
+    width:1.3rem;
+}
+
+.login-icon-key {
+    width:1.5rem;
+}
+
 input {
     padding: 16px;
     border-radius:7px;
-    border:0px;
+    border: 0;
     background: rgba(255,255,255,.2);
     display: block;
     margin: 15px;
@@ -64,9 +65,9 @@ button {
     transition: 0.15s;
 }
 
-.submit:hover {
+button:hover {
     cursor:pointer;
-    filter: brightness(0.9);
+    filter: brightness(0.8);
     transition: 0.15s;
 }
 

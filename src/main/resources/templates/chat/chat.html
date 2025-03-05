@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  채팅방 입장
+
+    <script>
+        const token = localStorage.getItem('accessToken');
+        fetch("/api/protected-resource", {
+            method: "GET",
+            mode: "cors", // or 'same-origin' if same domain
+            headers: {
+                "Authorization": "Bearer " + token,
+                "Content-Type": "application/json"
+            },
+            credentials: "include"
+        }).then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error("Fetch error:", error));
+    </script>
+</body>
+</html>
